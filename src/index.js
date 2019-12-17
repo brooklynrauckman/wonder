@@ -7,11 +7,11 @@ import "./styles.css";
 function App() {
 
 const options = [
-                {title: "surface area", id: "area", key:"earth"}, 
-                {title: "temperature", id: "temperature", key: "earth"}, 
-                {title: "mass", id: "mass", key:"earth"}, 
+                {title: "surface area", id: "area", key:"earth"},
+                {title: "temperature", id: "temperature", key: "earth"},
+                {title: "mass", id: "mass", key:"earth"},
                 {title: "luminosity", id: "luminosity", key:"space"},
-                {title: "distance from Earth", id: "distance", key:"space"}  
+                {title: "distance from Earth", id: "distance", key:"space"}
                 ];
 
 const [spaceData, updateSpaceData] = useState([]);
@@ -31,17 +31,17 @@ const [guestList, updateGuestList] = useState([]);
 
 useEffect(()=>{
       async function fetchSpaceData() {
-        const fetcher = await fetch('https://i4jio.sse.codesandbox.io/space');
+        const fetcher = await fetch('https://wonder-brauckman.herokuapp.com/space');
         const response = await fetcher.json()
         updateSpaceData(response)
       }
       async function fetchEarthData() {
-        const fetcher = await fetch('https://i4jio.sse.codesandbox.io/earth');
+        const fetcher = await fetch('https://wonder-brauckman.herokuapp.com/earth');
         const response = await fetcher.json()
         updateEarthData(response)
       }
       async function fetchGuestList() {
-        const fetcher = await fetch('https://i4jio.sse.codesandbox.io/');
+        const fetcher = await fetch('https://wonder-brauckman.herokuapp.com/');
         const response = await fetcher.json()
         updateGuestList(response)
       }
@@ -56,7 +56,7 @@ useEffect(()=>{
       <div className="App">
         <div className="view">
           <button className={earthToggle === true ? 'toggle on' : 'toggle'}                onClick={() => {
-                    updateEarthToggle(!earthToggle); 
+                    updateEarthToggle(!earthToggle);
                     updateSpaceToggle(!spaceToggle);
                     updateObjectOneSpace('');
                     updateObjectTwoSpace('');
@@ -66,16 +66,16 @@ useEffect(()=>{
           <button className={spaceToggle === true ? 'toggle on' : 'toggle'}
                   onClick={() => {
                     updateSpaceToggle(!spaceToggle);
-                    updateEarthToggle(!earthToggle); 
+                    updateEarthToggle(!earthToggle);
                     updateObjectOneEarth('');
                     updateObjectTwoEarth('');
                     }}
           >Space to Space
           </button>
         </div>
-        <Question selectedOptionEarth={selectedOptionEarth} 
+        <Question selectedOptionEarth={selectedOptionEarth}
                   updateSelectedOptionEarth={updateSelectedOptionEarth}
-                  selectedOptionSpace={selectedOptionSpace} 
+                  selectedOptionSpace={selectedOptionSpace}
                   updateSelectedOptionSpace={updateSelectedOptionSpace}
                   objectOneEarth={objectOneEarth}
                   objectOneSpace={objectOneSpace}
@@ -85,11 +85,11 @@ useEffect(()=>{
                   objectTwoSpace={objectTwoSpace}
                   updateObjectTwoEarth={updateObjectTwoEarth}
                   updateObjectTwoSpace={updateObjectTwoSpace}
-                  spaceData={spaceData} 
-                  earthData={earthData} 
-                  options={options} 
-                  earthToggle={earthToggle} 
-                  spaceToggle={spaceToggle} 
+                  spaceData={spaceData}
+                  earthData={earthData}
+                  options={options}
+                  earthToggle={earthToggle}
+                  spaceToggle={spaceToggle}
         />
       </div>
     </div>
