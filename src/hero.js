@@ -51,21 +51,21 @@ return(
       ></div>
       {menuToggle
       ? <div className="hero-options">
+          <div className="guest-list"
+               onClick={() => {updateListToggle(!listToggle); getGuestList('https://i4jio.sse.codesandbox.io/users');}}
+          >{listToggle === false ? 'Show Guest Galaxy' : 'Hide Guest Galaxy'}
+          </div>
           <div className="post">
-              <div className="guest-list"
-                   onClick={() => updateInputToggle(!inputToggle)}
-              >{inputToggle === true ? 'X' : 'Join Guest Galaxy'}</div>
-              {inputToggle === true ?
-              <input className="guest-input" type="text" placeholder="Add your name..." name="name"
-                     onKeyUp={(e) => {if (e.key === 'Enter') { updateListToggle(true); updateInputToggle(false); updateGuestToggle(true); postGuestList('https://i4jio.sse.codesandbox.io/users', {name: e.target.value}); updateGuestList([...guestList, {name: e.target.value}]);};
-                    }}
-              ></input>
-                : ''}
-            </div>
-            <div className="guest-list"
-                 onClick={() => {updateListToggle(!listToggle); getGuestList('https://i4jio.sse.codesandbox.io/users');}}
-            >{listToggle === false ? 'Show Guest Galaxy' : 'Hide Guest Galaxy'}
-            </div>
+            {inputToggle === true ?
+            <input className="guest-input" type="text" placeholder="Add your name..." name="name"
+                   onKeyUp={(e) => {if (e.key === 'Enter') { updateListToggle(true); updateInputToggle(false); updateGuestToggle(true); postGuestList('https://i4jio.sse.codesandbox.io/users', {name: e.target.value}); updateGuestList([...guestList, {name: e.target.value}]);};
+                  }}
+            ></input>
+              : ''}
+            <div className="guest-add"
+                 onClick={() => updateInputToggle(!inputToggle)}
+            >{inputToggle === true ? 'X' : 'Join Guest Galaxy'}</div>
+          </div>
         </div>
       : ''}
       <h1 className="title">I wonder ...</h1>
