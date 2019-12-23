@@ -51,48 +51,52 @@ useEffect(()=>{
 }, [])
 
   return (
-    <div className="wrapper">
+    <React.Fragment>
       <Hero listToggle={listToggle} updateListToggle={updateListToggle} guestList={guestList} updateGuestList={updateGuestList} inputToggle={inputToggle} updateInputToggle={updateInputToggle} guestToggle={guestToggle} updateGuestToggle={updateGuestToggle} />
-      <div className="App">
-        <div className="view">
-          <button className={earthToggle === true ? 'toggle on' : 'toggle'}                onClick={() => {
-                    updateEarthToggle(!earthToggle);
-                    updateSpaceToggle(!spaceToggle);
-                    updateObjectOneSpace('');
-                    updateObjectTwoSpace('');
-                    }}
-          >Space to Earth
-          </button>
-          <button className={spaceToggle === true ? 'toggle on' : 'toggle'}
-                  onClick={() => {
-                    updateSpaceToggle(!spaceToggle);
-                    updateEarthToggle(!earthToggle);
-                    updateObjectOneEarth('');
-                    updateObjectTwoEarth('');
-                    }}
-          >Space to Space
-          </button>
+      <div className="app-wrapper">
+        <div className="app">
+          <div className="view">
+            <button className={earthToggle === true ? 'toggle on' : 'toggle'}
+                    id="earth-button"
+                    onClick={() => {
+                      updateEarthToggle(!earthToggle);
+                      updateSpaceToggle(!spaceToggle);
+                      updateObjectOneSpace('');
+                      updateObjectTwoSpace('');
+                      }}
+            >Space to Earth
+            </button>
+            <button className={spaceToggle === true ? 'toggle on' : 'toggle'}
+                    onClick={() => {
+                      updateSpaceToggle(!spaceToggle);
+                      updateEarthToggle(!earthToggle);
+                      updateObjectOneEarth('');
+                      updateObjectTwoEarth('');
+                      }}
+            >Space to Space
+            </button>
+          </div>
+          <Question selectedOptionEarth={selectedOptionEarth}
+                    updateSelectedOptionEarth={updateSelectedOptionEarth}
+                    selectedOptionSpace={selectedOptionSpace}
+                    updateSelectedOptionSpace={updateSelectedOptionSpace}
+                    objectOneEarth={objectOneEarth}
+                    objectOneSpace={objectOneSpace}
+                    updateObjectOneEarth={updateObjectOneEarth}
+                    updateObjectOneSpace={updateObjectOneSpace}
+                    objectTwoEarth={objectTwoEarth}
+                    objectTwoSpace={objectTwoSpace}
+                    updateObjectTwoEarth={updateObjectTwoEarth}
+                    updateObjectTwoSpace={updateObjectTwoSpace}
+                    spaceData={spaceData}
+                    earthData={earthData}
+                    options={options}
+                    earthToggle={earthToggle}
+                    spaceToggle={spaceToggle}
+          />
         </div>
-        <Question selectedOptionEarth={selectedOptionEarth}
-                  updateSelectedOptionEarth={updateSelectedOptionEarth}
-                  selectedOptionSpace={selectedOptionSpace}
-                  updateSelectedOptionSpace={updateSelectedOptionSpace}
-                  objectOneEarth={objectOneEarth}
-                  objectOneSpace={objectOneSpace}
-                  updateObjectOneEarth={updateObjectOneEarth}
-                  updateObjectOneSpace={updateObjectOneSpace}
-                  objectTwoEarth={objectTwoEarth}
-                  objectTwoSpace={objectTwoSpace}
-                  updateObjectTwoEarth={updateObjectTwoEarth}
-                  updateObjectTwoSpace={updateObjectTwoSpace}
-                  spaceData={spaceData}
-                  earthData={earthData}
-                  options={options}
-                  earthToggle={earthToggle}
-                  spaceToggle={spaceToggle}
-        />
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

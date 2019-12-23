@@ -1,15 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import RandomColor from "./random-color.js";
 
 const postGuestList = async function postGuestList(url = '', data = {}) {
-  // try {
-  //   const data = await postData('http://example.com/answer', { answer: 42 });
-  //   console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
-  // } catch (error) {
-  //   console.error(error);
-  // }
+
     const response = await fetch(url, {
-      method: 'POST', 
+      method: 'POST',
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       credentials: 'same-origin', // include, *same-origin, omit
@@ -24,59 +19,69 @@ const postGuestList = async function postGuestList(url = '', data = {}) {
     return await response.json(); // parses JSON response into native JavaScript objects
 }
 
+const getGuestList = async function getGuestList(url = '') {
+
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrer: 'no-referrer', // no-referrer, *client
+    });
+    return await response.json(); // parses JSON response into native JavaScript objects
+}
+
 
 
 const Hero = (props) => {
 
-const {listToggle, updateListToggle, inputToggle, updateInputToggle, guestToggle, updateGuestToggle, guestList, updateGuestList} = props;
-
-// const colorList = [{color: "#FF0000"}, {color: "#FF7F00"}, {color: "#FFFF00"}, {color: "#00FF00"}, {color: "#0000FF"}, {color: "#2E2B5F"}, {color: "#8B00FF"} ];
-// const randomColor = colorList.map((i) => {return i.color});
-// const getOneColor = () => { for(i=0; i < randomColor.length; i++) {
-
-// }
-// };
-
-
+const {listToggle, updateListToggle, inputToggle, updateInputToggle, updateGuestToggle, guestList, updateGuestList} = props;
+const [menuToggle, updateMenuToggle] = useState(false);
 
 return(
   <div className="hero-wrapper">
-    <div className="Hero">
-      <div className="post">
-        <button className={inputToggle === true ? 'guest-list on' : 'guest-list'}
-                onClick={() => updateInputToggle(!inputToggle)}
-        >Join Guest Galaxy</button>
-        {inputToggle === true ?
-        <input className="guest-list input" type="text" placeholder="Add your name..." name="name"
-              onKeyUp={(e) => {if (e.key === 'Enter') { updateListToggle(true); updateInputToggle(false); updateGuestToggle(true); postGuestList('https://i4jio.sse.codesandbox.io/users', {name: e.target.value}); updateGuestList([...guestList, {name: e.target.value}]);};
-              }}
-        ></input>
-          : ''}
-      </div>
-      {guestToggle === true ?
-      <div className="show-hide">
-        <button className="guest-list"
-                onClick={() => updateListToggle(!listToggle)}
-        >{listToggle === false ? 'Show Guest Galaxy' : 'Hide Guest Galaxy'}
-        </button>
-      </div>
-      : ''
-      }
-      {guestToggle === true && listToggle === true ?
-        <div className="side-scroll">
-          
-          {guestList.map((user) => 
-          <div className="guest">
-            <RandomColor />
-            <div className="guest-name">{user.name}</div>
-          </div>
-       
-          )
-          }
+    <div className="hero">
+      <div className="circle-menu"
+           onClick={()=> updateMenuToggle(!menuToggle)}
+      ></div>
+      {menuToggle
+      ? <div className="hero-options">
+          <div className="post">
+              <div className="guest-list"
+                   onClick={() => updateInputToggle(!inputToggle)}
+              >{inputToggle === true ? 'X' : 'Join Guest Galaxy'}</div>
+              {inputToggle === true ?
+              <input className="guest-input" type="text" placeholder="Add your name..." name="name"
+                     onKeyUp={(e) => {if (e.key === 'Enter') { updateListToggle(true); updateInputToggle(false); updateGuestToggle(true); postGuestList('https://i4jio.sse.codesandbox.io/users', {name: e.target.value}); updateGuestList([...guestList, {name: e.target.value}]);};
+                    }}
+              ></input>
+                : ''}
+            </div>
+            <div className="guest-list"
+                 onClick={() => {updateListToggle(!listToggle); getGuestList('https://i4jio.sse.codesandbox.io/users');}}
+            >{listToggle === false ? 'Show Guest Galaxy' : 'Hide Guest Galaxy'}
+            </div>
         </div>
-        : ''
-        }
+      : ''}
       <h1 className="title">I wonder ...</h1>
+        {listToggle === true ?
+          <div className="side-scroll">
+            <div className="guest-wrapper">
+              {guestList.map((user) =>
+              <div className="guest">
+                <RandomColor />
+                <div className="guest-name">{user.name}</div>
+              </div>
+              )}
+            </div>
+          </div>
+          : ''
+          }
       </div>
   </div>
 )};
